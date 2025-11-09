@@ -1,66 +1,55 @@
-## Foundry
+## OctantVaultHook – Powering Public Goods Through Intelligent Liquidity**
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+**Overview**
+In traditional AMMs, liquidity providers (LPs) earn trading fees—but those fees rarely serve broader ecosystem goals. The OctantVaultHook reimagines this model:
 
-Foundry consists of:
+- A dynamic fee (0.0%–10%) is applied based on swap size.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- A portion of generated fees flows directly into an Octant Vault to fund verified public goods.
 
-## Documentation
+- Remaining fees incentivize LPs and reinforce pool depth.
 
-https://book.getfoundry.sh/
+- Smart range optimization ensures LP capital stays productive.
 
-## Usage
+- Time-based withdrawal penalties discourage short-term speculation and protect pool stability.
 
-### Build
+This creates a self-sustaining loop: more liquidity → more swaps → more fees → more public goods funding → stronger ecosystem → more demand for liquidity.
 
-```shell
-$ forge build
-```
+## 💡 Core Mechanics
+_1. Dynamic Fee Structure_
+|  Swap magnitude  | Fee Tier |
+| Very Large       | 10.0%    |
+| Large            | 5.0%     |
+| Medium           | 2.5%     |
+| Small            | 1.0%.    |
+| Tiny             | 0.0%     |
 
-### Test
+_2. Fee Allocation_
 
-```shell
-$ forge test
-```
+- 40% → Octant Vault (funds public goods)
 
-### Format
+- 50% → LPs (as yield incentive)
 
-```shell
-$ forge fmt
-```
+- 10% → Pool Reserves (to deepen liquidity)
 
-### Gas Snapshots
+_3. Early Withdrawal Slash_
+To prevent liquidity churn and ensure pool stability.
 
-```shell
-$ forge snapshot
-```
+_4. Zero-Fee Fallback_
+If no fees are generated in 24 hours, a minimal 0.003% of LP principal is redirected to the Octant Vault—ensuring continuous public goods funding even in low-activity periods.
 
-### Anvil
+_5. Auto-Range Optimization (“Maximize Yield” Mode)_
+LPs can opt into auto-range rebalancing:
 
-```shell
-$ anvil
-```
+- After each swap, the hook checks if the LP’s position is in-range.
+- If out-of-range, the hook automatically redeployes liquidity into a new optimal price range on behalf of the LP.
+- Uses on-chain oracles or recent price data to determine ideal ranges.
+- Minimizes idle capital and maximizes fee capture.
 
-### Deploy
+## How to test the hook
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+1. Clone the github repository and use foundry to install the dependences, configure remappings.txt file and test using the provided scripts or run custom tests, then deploy the hook on the Ethereum mainnet. The vault linked to in the hook is the Spark Eth vault on the Ethereum Mainnet.
 
-### Cast
 
-```shell
-$ cast <subcommand>
-```
 
-### Help
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
